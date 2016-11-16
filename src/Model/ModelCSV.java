@@ -43,8 +43,8 @@ public class ModelCSV extends AbstractModel{
             final String nomCourse = CsvFileHelper.getFile();
             final String nomCoureur = oneData[1];
             final String prenomCoureur = oneData[2];
-            final int place = Integer.parseInt(oneData[3]);
-            final String temps = oneData[4];
+            final int place = Integer.parseInt(oneData[0]);
+            final String temps = oneData[3];
             final Courir courir = new Courir(nomCourse, nomCoureur, prenomCoureur, place,temps);
             courirs.add(courir);
         }
