@@ -6,12 +6,17 @@
 package View;
 
 import Controlleur.AppController;
-import Metier.CsvFileHelper;
+import Metier.Courir;
 import Metier.MonModelDeTable;
 import Model.AbstractModel;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +28,8 @@ public class MainView extends javax.swing.JFrame implements Observer{
     AppController appController = new AppController();
     AbstractModel model;
     Object data;
- 
+    
+    
     /**
      * Creates new form MainView
      */
@@ -36,6 +42,7 @@ public class MainView extends javax.swing.JFrame implements Observer{
         {
             listeModels.get(i).addObserver(this);
         }
+         
     }
     
     public MainView(ArrayList <AbstractModel> listeModels,Object data) {
@@ -46,6 +53,7 @@ public class MainView extends javax.swing.JFrame implements Observer{
         {
             listeModels.get(i).addObserver(this);
         }
+         
     }
     
     public MainView(ArrayList <AbstractModel> listeModels) {
@@ -55,8 +63,12 @@ public class MainView extends javax.swing.JFrame implements Observer{
         {
             listeModels.get(i).addObserver(this);
         }
+        
     }
    
+    
+   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,9 +78,6 @@ public class MainView extends javax.swing.JFrame implements Observer{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        txtTest = new javax.swing.JTextField();
-        txtUpdate = new javax.swing.JTextField();
         lblCSV = new javax.swing.JLabel();
         cmbCSV = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,16 +85,19 @@ public class MainView extends javax.swing.JFrame implements Observer{
         btnCSVBase = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
         lblCSV.setText("Fichier CSV:");
 
+        cmbCSV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCSVItemStateChanged(evt);
+            }
+        });
         cmbCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCSVActionPerformed(evt);
@@ -95,7 +107,7 @@ public class MainView extends javax.swing.JFrame implements Observer{
         jTable1.setModel(new MonModelDeTable());
         jScrollPane1.setViewportView(jTable1);
 
-        btnCSVBase.setText("Trransfert vers la base");
+        btnCSVBase.setText("Transfert vers la base");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,13 +123,7 @@ public class MainView extends javax.swing.JFrame implements Observer{
                         .addComponent(lblCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cmbCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTest, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))))
+                        .addGap(232, 469, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(264, 264, 264)
                 .addComponent(btnCSVBase, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,23 +132,11 @@ public class MainView extends javax.swing.JFrame implements Observer{
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(btnCSVBase, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,16 +146,38 @@ public class MainView extends javax.swing.JFrame implements Observer{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-       appController.changeTest(txtTest.getText());
-       txtUpdate.setText(appController.getTest());
-       this.update(appController.getModel("ModelTest"), data); 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void cmbCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCSVActionPerformed
-        // TODO add your handling code here:
+         ArrayList<Courir> listeCourir = null;
+        
+        try {
+            listeCourir = appController.getListeCourir((String) cmbCSV.getSelectedItem());
+        } catch (IOException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            for (int i = 0; i < listeCourir.size(); i++)
+            {
+                jTable1.setValueAt(listeCourir.get(i).getNomCoureur(), i, 0);
+                jTable1.setValueAt(listeCourir.get(i).getPrenomCoureur(), i, 1);
+                jTable1.setValueAt(listeCourir.get(i).getPlace(), i, 2);
+                jTable1.setValueAt(listeCourir.get(i).getTemps(), i, 3);
+            }
+      
     }//GEN-LAST:event_cmbCSVActionPerformed
+
+    private void cmbCSVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCSVItemStateChanged
+        updateTableCourir();
+    }//GEN-LAST:event_cmbCSVItemStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
+        cmbCSV.addItem(appController.getFile("res_defiDuGouet_20_2012.csv")); 
+        cmbCSV.addItem(appController.getFile("res_loco_15_2012.csv"));
+        cmbCSV.addItem(appController.getFile("res_loco_32_2012.csv"));
+        cmbCSV.addItem(appController.getFile("res_menebre_10_2012.csv"));
+        cmbCSV.addItem(appController.getFile("res_menebre_26_2012.csv"));
+        cmbCSV.addItem(appController.getFile("res_randomuco_14_2012.csv"));
+        cmbCSV.addItem(appController.getFile("res_randomuco_36_2012.csv"));
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -170,21 +186,15 @@ public class MainView extends javax.swing.JFrame implements Observer{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCSVBase;
     private javax.swing.JComboBox cmbCSV;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCSV;
-    private javax.swing.JTextField txtTest;
-    private javax.swing.JTextField txtUpdate;
     // End of variables declaration//GEN-END:variables
 
     
     
-    
-    
-    
     public void afficher(){
-           System.out.println(" Vue1 : le modèle a changé : " + appController.getTest());
+           
         }
     
    @Override
@@ -193,5 +203,25 @@ public class MainView extends javax.swing.JFrame implements Observer{
         afficher(); 
     }
     
+    public void updateTableCourir() {
+        showCourir(); 
+    }
+
+    private void showCourir() {
+        
+        for (int i = 0; i< jTable1.getRowCount();i++)
+        {
+             for (int j = 0; j < jTable1.getColumnCount(); j++)
+            {
+                if (jTable1.getValueAt(i, j) != null)
+                    {
+                        jTable1.setValueAt("", i, j);
+                        jTable1.setValueAt("", i, j);
+                        jTable1.setValueAt("", i, j);
+                        jTable1.setValueAt("", i, j);
+                    }
+            } 
+        }
+    } 
 }
 

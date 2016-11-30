@@ -5,6 +5,8 @@
  */
 package Metier;
 
+import java.sql.Time;
+
 /**
  *
  * @author Administrateur
@@ -12,9 +14,9 @@ package Metier;
 public class Courir {
     private String nomCourse,nomCoureur,prenomCoureur;
     private int place;
-    private String temps;
+    private Time temps;
 
-    public Courir(String nomCourse, String nomCoureur, String prenomCoureur, int place, String temps) {
+    public Courir(String nomCourse, String nomCoureur, String prenomCoureur, int place, Time temps) {
         this.nomCourse = nomCourse;
         this.nomCoureur = nomCoureur;
         this.prenomCoureur = prenomCoureur;
@@ -57,11 +59,11 @@ public class Courir {
         this.place = place;
     }
 
-    public String getTemps() {
+    public Time getTemps() {
         return temps;
     }
 
-    public void setTemps(String temps) {
+    public void setTemps(Time temps) {
         this.temps = temps;
     } 
 }

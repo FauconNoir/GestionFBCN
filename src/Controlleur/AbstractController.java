@@ -49,17 +49,18 @@ public abstract class  AbstractController {
         listeModels.remove(pModel);
     }
     
-   public AbstractModel getModel(String unModel)
+   public AbstractModel getModel(AbstractModel unModel)
    {
+       int i;
        AbstractModel model =null;
-       for (int i = 0; i < listeModels.size(); i++)
+       for (i = 0; i < listeModels.size(); i++)
        {
-           if(listeModels.get(i).getNom().equals(listeModels.get(i+1).getNom()))
+           if(listeModels.get(i).getNom().equals(unModel.getNom()))
            {
               model =  listeModels.get(i);
            }
        }
-       return model;
+       return listeModels.get(i);
    }
 
     public ArrayList<JFrame> getListeViews() {

@@ -5,11 +5,8 @@
  */
 package Model;
 
-import Metier.Courir;
-import Metier.CsvFileHelper;
-import static Metier.CsvFileHelper.readCsvFile;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -17,37 +14,33 @@ import java.util.List;
  */
 public class ModelCSV extends AbstractModel{
     
+    private final static String RESOURCES_PATH = "C://Users//Administrateur.C103-POSTE02//Documents//Fichiers_Csv//";
+    private ArrayList<String> listeFile;
+    private String file;
     
     public ModelCSV(String nom) {
         super(nom);
-        
+        listeFile = new ArrayList();
     }
 
-    private final static char SEPARATOR = ';';
-    private final static String RESOURCES_PATH = "D://java//Activité1_FBCN//Ressources//Fichiers_Csv";
-    
-
-    public List<Courir> getCourir(String fichier) {
-
-        final List<String[] > data = readCsvFile(RESOURCES_PATH + fichier, SEPARATOR);
-
-        final List<Courir> courirs = dataToCourirs(data);
-
-        return courirs;
+    public ArrayList<String> getListeFile() {
+        return listeFile;
     }
 
-    private List<Courir> dataToCourirs(List<String[] > data) {
-        final List<Courir> courirs = new ArrayList<Courir>();
-        
-        for (String[] oneData : data) {
-            final String nomCourse = CsvFileHelper.getFile();
-            final String nomCoureur = oneData[1];
-            final String prenomCoureur = oneData[2];
-            final int place = Integer.parseInt(oneData[0]);
-            final String temps = oneData[3];
-            final Courir courir = new Courir(nomCourse, nomCoureur, prenomCoureur, place,temps);
-            courirs.add(courir);
-        }
-        return courirs;
+    public void setListeFile(ArrayList<String> listeFile) {
+        this.listeFile = listeFile;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public void addFile(String pfile)
+    {
+        this.listeFile.add(file);
     }
 }

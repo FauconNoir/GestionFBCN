@@ -17,11 +17,11 @@ import java.sql.Statement;
  */
 public class SQL {
     
-      private static  String pilote = "org.gjt.mm.mysql.Driver";
-      private static String url = "jdbc:mysql://localhost/fbcn";			        
-      private static  Connection  conn;
-      private static Statement stmt;
-      private static ResultSet rs;
+      private static String      pilote = "org.gjt.mm.mysql.Driver";
+      private static String      url = "jdbc:mysql://localhost/gestionfbcn";			        
+      private static Connection  conn;
+      private static Statement   stmt;
+      private static ResultSet   rs;
       
     private static Connection connexion()
     {
@@ -46,14 +46,14 @@ public class SQL {
     { 
            stmt = getConnection().createStatement();			            
            rs = stmt.executeQuery(requete);
-            return rs;
+           return rs;
     }
     
-    public static ResultSet insert(String requete) throws SQLException
+    public static void insert(String requete) throws SQLException
     { 
-           stmt = getConnection().createStatement();			            
-           rs = stmt.executeQuery(requete);
-           return rs;
+            stmt = getConnection().createStatement();			            
+            stmt.executeUpdate(requete);
+            stmt.close();
     }
     
     

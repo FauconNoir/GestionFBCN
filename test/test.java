@@ -3,25 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Metier;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-public class CsvFileHelper {
-
-   private static String fileName;
-    
+/**
+ *
+ * @author Administrateur
+ */
+/*
+public class test {
     public static List<String[] > readCsvFile(String pFileName, char separator) {
-        final List<String[] > data = new ArrayList<String[] >();
+        final List<String[] > data = new ArrayList< >();
 
-        fileName = pFileName;
         try {
-            final File file = new File(pFileName);
+            file = new File(pFileName);
+            String nomfichier = (file.getName() != null) ? file.getName().substring(0,file.getName().indexOf('.')) : "";
+            nom = nomfichier;
             final FileReader fr = new FileReader(file);
 
             final CSVReader csvReader = new CSVReader(fr, separator);
@@ -47,19 +42,29 @@ public class CsvFileHelper {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.getMessage();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getCause();
         }
+      
         return data;
     }
 
-   public static String getFile()
-   {
-       return fileName;
-   }       
-    
-    
+    public static File getFile() {
+        return file;
+    }
+
+    public static void setFile(File file) {
+        CsvFileHelper.file = file;
+    }
+
+    public static String getNom() {
+        return nom;
+    }
+
+    public static void setNom(String nom) {
+        CsvFileHelper.nom = nom;
+    }
+      
 }
-    
-    
+*/

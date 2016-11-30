@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -34,14 +37,7 @@
                       <Component id="lblCSV" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cmbCSV" min="-2" pref="205" max="-2" attributes="0"/>
-                      <EmptySpace pref="154" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtUpdate" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="txtTest" min="-2" pref="83" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="135" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace min="232" pref="469" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -55,30 +51,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtUpdate" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="txtTest" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblCSV" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="cmbCSV" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="55" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCSV" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="cmbCSV" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="317" max="-2" attributes="0"/>
               <EmptySpace pref="25" max="32767" attributes="0"/>
               <Component id="btnCSVBase" min="-2" pref="38" max="-2" attributes="0"/>
@@ -88,18 +66,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="update"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtTest">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtUpdate">
-    </Component>
     <Component class="javax.swing.JLabel" name="lblCSV">
       <Properties>
         <Property name="text" type="java.lang.String" value="Fichier CSV:"/>
@@ -112,6 +78,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbCSVItemStateChanged"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbCSVActionPerformed"/>
       </Events>
     </Component>
@@ -136,7 +103,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnCSVBase">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Trransfert vers la base"/>
+        <Property name="text" type="java.lang.String" value="Transfert vers la base"/>
       </Properties>
     </Component>
   </SubComponents>
