@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class MonModelDeTable extends AbstractTableModel{
     private String[] columnNames = {"Nom Coureur","Prénom Coureur","Place","Temps"};
-		private Object[][] data=new Object[30][4];
+		private Object[][] data=new Object[5000][4];
     @Override
 		public int getColumnCount()
 		{
@@ -45,6 +45,7 @@ public class MonModelDeTable extends AbstractTableModel{
 		{
 			data[row][col] = value;
 			fireTableCellUpdated(row,col);
+                        fireTableDataChanged();
 		}
                 
                 public void effaceTout()

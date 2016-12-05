@@ -9,8 +9,7 @@ import Controlleur.AppController;
 import Metier.Courir;
 import Metier.MonModelDeTable;
 import Model.AbstractModel;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -147,36 +146,22 @@ public class MainView extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCSVActionPerformed
-         ArrayList<Courir> listeCourir = null;
-        
-        try {
-            listeCourir = appController.getListeCourir((String) cmbCSV.getSelectedItem());
-        } catch (IOException ex) {
-            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            for (int i = 0; i < listeCourir.size(); i++)
-            {
-                jTable1.setValueAt(listeCourir.get(i).getNomCoureur(), i, 0);
-                jTable1.setValueAt(listeCourir.get(i).getPrenomCoureur(), i, 1);
-                jTable1.setValueAt(listeCourir.get(i).getPlace(), i, 2);
-                jTable1.setValueAt(listeCourir.get(i).getTemps(), i, 3);
-            }
-      
+
+         
     }//GEN-LAST:event_cmbCSVActionPerformed
 
     private void cmbCSVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCSVItemStateChanged
-        updateTableCourir();
+            if (evt.getStateChange() != 1) {
+                updateTableCourir();
+            }
     }//GEN-LAST:event_cmbCSVItemStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         
-        cmbCSV.addItem(appController.getFile("res_defiDuGouet_20_2012.csv")); 
-        cmbCSV.addItem(appController.getFile("res_loco_15_2012.csv"));
-        cmbCSV.addItem(appController.getFile("res_loco_32_2012.csv"));
-        cmbCSV.addItem(appController.getFile("res_menebre_10_2012.csv"));
-        cmbCSV.addItem(appController.getFile("res_menebre_26_2012.csv"));
-        cmbCSV.addItem(appController.getFile("res_randomuco_14_2012.csv"));
-        cmbCSV.addItem(appController.getFile("res_randomuco_36_2012.csv"));
+        for (int i = 0; i < appController.getListeFiles().size(); i++)
+        {
+            cmbCSV.addItem(appController.getListeFiles().get(i).getName());
+        }
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -222,6 +207,28 @@ public class MainView extends javax.swing.JFrame implements Observer{
                     }
             } 
         }
-    } 
-}
+       
+        {
+         ArrayList<Courir> listeCourir = null;
+        try {
+            updateTableCourir();
+            System.out.println("FICHIER : " + (String) cmbCSV.getSelectedItem());
+            listeCourir = appController.getListeCourir(cmbCSV.getSelectedItem().toString());
+            System.out.println("TAILLE COURIR : " + listeCourir.size());
+        } catch (IOException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            for (int i = 0; i < listeCourir.size(); i++)
+            {
+               
+                jTable1.setValueAt(listeCourir.get(i).getNomCoureur(), i, 0);
+                jTable1.setValueAt(listeCourir.get(i).getPrenomCoureur(), i, 1);
+                jTable1.setValueAt(listeCourir.get(i).getPlace(), i, 2);              
+                jTable1.setValueAt(listeCourir.get(i).getTemps(), i, 3);          
+            }
+      }
+    }
+ } 
+ 
+
 

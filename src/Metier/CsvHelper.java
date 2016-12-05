@@ -15,44 +15,38 @@ import java.util.ArrayList;
  *
  * @author Administrateur
  */
-public class CsvHelper {
+public class CsvHelper
+{
+    
     private static ArrayList<String> listeString = new ArrayList();
-    private static String nomFichier;
     public static ArrayList<String> readCSVFile(String path, String fichier) throws IOException
     {
-        
-    String nomFichier = (fichier != null) ? fichier.substring(0,fichier.indexOf('.')) : "";
-    BufferedReader br = new BufferedReader(new FileReader(path + fichier));
-    String ligne = null;
-    while ((ligne = br.readLine()) != null)
-     {
-      // Retourner la ligne dans un tableau
-      String[] data = ligne.split(",");
- 
-      // Afficher le contenu du tableau
-      for (int i = 0; i < data.length; i++)
-      {
-          listeString.add(data[i]);
-      }
+        for (int i = 0; i < listeString.size(); i++)
+        {
+            listeString.remove(i);
+        }
+        BufferedReader br = new BufferedReader(new FileReader(path + fichier));
+        String ligne = null;
+        while ((ligne = br.readLine()) != null)
+        {
+            // Retourner la ligne dans un tableau
+            listeString.add(ligne);
+        }
+        br.close();
+        return listeString;
     }
-    br.close();
-    return listeString;
-    }
-
     public static ArrayList<String> getListeString() {
         return listeString;
     }
 
     public static void setListeString(ArrayList<String> listeString) {
         CsvHelper.listeString = listeString;
+    }  
+    
+    public static File[] loadFile(String path)
+    {
+        File repertoire = new File(path);
+        File[] files = repertoire.listFiles();
+        return files;
     }
-
-    public static String getNomFichier() {
-        return nomFichier;
-    }
-
-    public static void setNomFichier(String nomFichier) {
-        CsvHelper.nomFichier = nomFichier;
-    }
-      
 }

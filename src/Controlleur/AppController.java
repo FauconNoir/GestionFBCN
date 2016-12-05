@@ -35,39 +35,25 @@ public class AppController extends AbstractController{
         this.addModel(modelCSV);
         this.getListeModels().add(modelCSV);
         this.getListeModels().add(modelCourir);
-        modelCSV.addFile("res_defiDuGouet_20-2012.csv");
-        modelCSV.addFile("res_loco_15_2012.csv");
-        modelCSV.addFile("res_loco_32_2012.csv");
-        modelCSV.addFile("res_menebre_10-2012.csv");
-        modelCSV.addFile("res_menebre_26-2012.csv");
-        modelCSV.addFile("res_randomuco_14-2012.csv");
-        modelCSV.addFile("res_randomuco_36-2012.csv");
         MainView view = new MainView(this.getListeModels());
         view.setVisible(true);
     }
     
-    public void setFile(String File)
+    
+    public void setFile(File File)
     {
         modelCSV.setFile(File);
     }
     
-    public String getFile(String file)
+    public ArrayList<File> getListeFiles()
     {
-        
-        for (int i = 0; i < modelCSV.getListeFile().size(); i++)
-        {
-            if(modelCSV.getListeFile().get(i).equals(file))
-            {
-                file = modelCSV.getListeFile().get(i);
-            }
-        }
-        return file;
+        return modelCSV.getListeFiles();
     }
     
     public ArrayList<Courir> getListeCourir(String file) throws FileNotFoundException, IOException
     {
         ArrayList<Courir> data = new ArrayList();
-        data = (ArrayList<Courir>) modelCourir.getListeCourir(file);
+        data = modelCourir.getListeCourir(file);
         return data;
     }
     

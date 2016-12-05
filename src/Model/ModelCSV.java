@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Metier.CsvHelper;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -15,32 +16,38 @@ import java.util.ArrayList;
 public class ModelCSV extends AbstractModel{
     
     private final static String RESOURCES_PATH = "C://Users//Administrateur.C103-POSTE02//Documents//Fichiers_Csv//";
-    private ArrayList<String> listeFile;
-    private String file;
+    private ArrayList<File> listeFiles;
+    private File file;
     
     public ModelCSV(String nom) {
         super(nom);
-        listeFile = new ArrayList();
+        listeFiles = new ArrayList<File>();
+        File[] lesFiles = CsvHelper.loadFile(RESOURCES_PATH);
+        for (int i= 0; i < lesFiles.length; i++)
+        {
+       
+            listeFiles.add(lesFiles[i]);
+        }
     }
 
-    public ArrayList<String> getListeFile() {
-        return listeFile;
+    public ArrayList<File> getListeFiles() {
+        return listeFiles;
     }
 
-    public void setListeFile(ArrayList<String> listeFile) {
-        this.listeFile = listeFile;
+    public void setListeFile(ArrayList<File> listeFiles) {
+        this.listeFiles = listeFiles;
     }
 
-    public String getFile() {
+    public File getFile() {
         return file;
     }
 
-    public void setFile(String file) {
+    public void setFile(File file) {
         this.file = file;
     }
 
-    public void addFile(String pfile)
+    public void addFile()
     {
-        this.listeFile.add(file);
+        
     }
 }

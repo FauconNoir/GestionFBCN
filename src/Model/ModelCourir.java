@@ -6,7 +6,7 @@
 package Model;
 
 import Metier.Courir;
-import static Metier.CsvHelper.getNomFichier;
+import Metier.CsvHelper;
 import static Metier.CsvHelper.readCSVFile;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,25 +21,29 @@ import java.util.List;
  */
 public class ModelCourir extends AbstractModel{
    
-      private final static String RESOURCES_PATH = "C://Users//Administrateur.C103-POSTE02//Documents//Fichiers_Csv//";
+    private final static String RESOURCES_PATH = "C://Users//Administrateur.C103-POSTE02//Documents//Fichiers_Csv//";
     private ArrayList<Courir> listeCourir;
     private Courir courir;
+    private String nom;
     
-    String nom;
     public ModelCourir(String nom) {
         super(nom);
         listeCourir = new ArrayList();
+        
     }
     
-    
-    public List<Courir> getListeCourir(String fichier) throws FileNotFoundException, IOException {
-                ArrayList<String> data = new ArrayList();
+    public ArrayList<Courir> getListeCourir(String fichier) throws FileNotFoundException, IOException {
+                ArrayList<String> data;
                 data = readCSVFile(RESOURCES_PATH,fichier);
                 String nomFichier = (fichier != null) ? fichier.substring(0,fichier.indexOf('.')) : "";
-        for (int i= 0; i < data.size();i++)
+        for (int i= 0; i < data.size(); i++)
                 {
-                    
-                    courir = new Courir(nomFichier,data.get(2),data.get(1),Integer.parseInt(data.get(0)),Time.valueOf(data.get(3)));
+                    String[] ligne = data.get(i).split(";");
+                    //String[] tabTemps = ligne[3].split(":");
+                    //String temps =  tabTemps[0];
+                   
+                    //System.out.println(temps);
+                    courir = new Courir(nomFichier,ligne[2],ligne[1],Integer.parseInt(ligne[0]),ligne[3]);
                     listeCourir.add(courir);
                 }
       return listeCourir;

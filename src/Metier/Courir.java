@@ -14,9 +14,9 @@ import java.sql.Time;
 public class Courir {
     private String nomCourse,nomCoureur,prenomCoureur;
     private int place;
-    private Time temps;
+    private String temps;
 
-    public Courir(String nomCourse, String nomCoureur, String prenomCoureur, int place, Time temps) {
+    public Courir(String nomCourse, String nomCoureur, String prenomCoureur, int place, String temps) {
         this.nomCourse = nomCourse;
         this.nomCoureur = nomCoureur;
         this.prenomCoureur = prenomCoureur;
@@ -59,11 +59,11 @@ public class Courir {
         this.place = place;
     }
 
-    public Time getTemps() {
+    public String getTemps() {
         return temps;
     }
 
-    public void setTemps(Time temps) {
+    public void setTemps(String temps) {
         this.temps = temps;
     } 
 }
